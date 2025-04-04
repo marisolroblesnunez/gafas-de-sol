@@ -1,0 +1,39 @@
+:root{
+    --white:white;
+    --black:#000000;
+    --rosas: rgb(175, 30, 139); 
+    --claro:rgb(82, 37, 72);
+--beight: #dfb2d5;
+--azul:#0f1a2f;
+--azulclaro:#2ce6d6;
+--rosa:#ff4d8a;
+--clarorosa:#e9e9f0;
+
+
+}
+
+.menufijo{
+background-color: var(--rosa);
+
+}
+
+.menu{
+    background-color: var(--claro);
+    display: flex;
+   
+    flex-direction: column;
+    align-items:center;
+    
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:1rem;
+    transition: all 0.3s ease;
+}
+.menu a{
+    position: relative;
+    display: inline-block;
+    padding-block: 1px;
+    line-height: 1.2;
+    color: var(--beight;
+}

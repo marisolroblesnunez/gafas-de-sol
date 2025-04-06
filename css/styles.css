@@ -8,13 +8,80 @@
 --azulclaro:#2ce6d6;
 --rosa:#ff4d8a;
 --clarorosa:#e9e9f0;
+--degrabcla:#e9c5eb;
+--degrabosc:#f110a6;
+}
 
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    line-height: 1rem;
+    color: var(--beight);
+    background-color: var(rosas);
+    
+}
+
+header{
+    background-image: url(../img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@keyframes animacion{
+    from{
+        opacity: 0;transform: translateY(-20px);
+    }
+    to{
+        opacity: 1;transform: translate(0);
+    }
+}
+.portada1 h1{
+    font-family: "Festive", cursive;
+  font-weight: 00;
+  font-style: normal;
+  background: linear-gradient(90deg, #e9c5eb,#f110a6);
+  font-size: 7rem;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animacion 5s ease;
+  background-size: cover;
 
 }
 
-.menufijo{
-background-color: var(--rosa);
 
+
+.portada1{
+    
+    
+    display: flex;
+    flex-direction: column;
+    
+    font-size: 3rem;
+    line-height:7rem;
+    color: var(--beight);
+   margin: 5rem;
+    padding: 1rem;
+}
+.portada{
+   
+    /* background-color:rgba(99, 4, 77, 0.5); */
+     background-color:linear-gradient(90deg, rgb(163, 107, 135) ,rgb(231, 207, 217));
+    height: 100vh;
+    
+   
+    
+    
+}
+.menufijo{
+background-color: var(--azul);
+display: flex;
+justify-content: space-between;
+align-items: center;
+color:var(--clarorosa);
 }
 
 .menu{
@@ -35,5 +102,25 @@ background-color: var(--rosa);
     display: inline-block;
     padding-block: 1px;
     line-height: 1.2;
-    color: var(--beight;
+    color: var(--beight);
+}
+.container .gafas{
+    max-width: 100%;
+    opacity: 1;
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+    border-color: #e73588;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+
 }

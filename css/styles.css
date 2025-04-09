@@ -306,6 +306,7 @@ input[type="submit"]{
         width: 200px;
         animation: seg-animacion 5s infinite;
         margin: auto;
+        margin-bottom: 4rem;
         
        }
        .piepagina{
@@ -314,7 +315,8 @@ input[type="submit"]{
        
        text-align: center;
         align-items: center;
-        padding:2rem 0;
+        padding-top: 2rem;
+        border-top: var(--rosas) 2px dotted;
     }
     
     .iconos{
@@ -328,15 +330,22 @@ input[type="submit"]{
     .piepagina, .iconos{
         
         color: var(--rosas);
-        line-height: 3rem;
+      
     }
     
     .iconos i{
     color: var(--rosas);
     font-size: 2rem;
-    margin: 50px 10px;
+    margin: 5px 10px;
    
 
     }
     .iconos i:hover{
-        color: var(--degrabosc);}
+        color: var(--degrabosc);
+    }
+
+.promocion{
+    padding: 0 5%;
+
+    
+}

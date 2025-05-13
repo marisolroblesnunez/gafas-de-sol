@@ -1,7 +1,11 @@
 
         
-        let citas= []
-        let cita ={fecha:'',nombre:'', tipo:'', telefono:'',notas:''};
+        let citas= [];
+        let cita ={fechaYhora:'',nombre:'', tipo:'', telefono:'',notas:''};
+      
+
+        
+
         document.addEventListener('DOMContentLoaded', function() {
             // Elementos del DOM
             const timeSlotsContainer = document.querySelector('.time-slots');
@@ -32,6 +36,22 @@
                         timeSlot.textContent = timeString;
                         timeSlotsContainer.appendChild(timeSlot);
                     }
+                }
+            }
+
+
+            // leer el datasorage
+            function leerDelLocalStorage(){
+                if(localStorage.getItem('citasGuardadas') !== null){
+                    let datos = localStorage.getItem('citasGuardadas');
+                    citas = JSON.parse(datos);
+                    //updateSchedule();
+                    citas.forEach(cita => {
+                        displayCitas(cita);
+                    });
+                    
+                }else{
+                    citas = [];
                 }
             }
             
@@ -68,6 +88,26 @@
                         appointmentsContainer.appendChild(appointmentSlot);
                     }
                 }
+                // citas.forEach(cita => {
+                //          const timeString = `${cita.time}`;
+                //         const appointmentSlot = document.createElement('div');
+                //         appointmentSlot.className = 'appointment-slot available';
+                //         appointmentSlot.dataset.time = timeString;
+                        
+                //         // Simular algunas citas existentes (en una aplicación real, esto vendría de una base de datos)
+                //             appointmentSlot.className = 'appointment-slot booked';
+                //             const name = `Paciente ${cita.nombre}`;
+                //             const phone = `${cita.telefono}`;
+                            
+                //             appointmentSlot.innerHTML = `
+                //                 <div class="appointment-info">
+                //                     <div class="appointment-name">${name}</div>
+                //                     <div class="appointment-phone">${phone}</div>
+                //                 </div>
+                //             `;
+                //             appointmentSlot.addEventListener('click', handleAppointmentSlotClick);
+                //         appointmentsContainer.appendChild(appointmentSlot);
+                // })
             }
             
             // Manejar clic en un slot de cita
@@ -130,6 +170,8 @@
                 
                 // Aquí normalmente enviarías los datos al servidor
                 const time = appointmentTimeInput.value;
+                
+                const date = document.getElementById('current-date').value;
                 const name = document.getElementById('patient-name').value;
                 const phone = document.getElementById('patient-phone').value;
                 const type = document.getElementById('appointment-type').value;
@@ -141,28 +183,34 @@
  
    
                 //comprobar si el producto existe en el carrito con la misma fecha
-                const citaExiste = citas.findIndex(item => item.date === time );
+                const citaExiste = citas.findIndex(item => item.hora === time && item.fecha === date);
 
 
                 if(citaExiste === -1){
-                    citas.push({time, name, phone, type, notes});
+                    citas.push({
+                        fecha: date,
+                        hora: time,
+                        nombre: name,
+                        telefono: phone,
+                        tipo: type,
+                        notas: notes
+                    });
                 }else{
                     //el producto ya está en el carrito
+                    citas[citaExiste].fecha = date;
                     citas[citaExiste].nombre = name;
                     citas[citaExiste].telefono = phone;
                     citas[citaExiste].tipo = type;
                     citas[citaExiste].notas = notes;
                             
                 }
+                localStorage.setItem("citasGuardadas", JSON.stringify(citas))
 
-
-
-                citas.push({ time, name, phone, type, notes })
-                localStorage.setItem("citasGuardadas", citas)
-
-                console.log(citas)
+                console.log(citas);
                 
-                // Actualizar la UI
+                // Actualizar la UI            
+                                                                                    //NO LO ENTIENDO
+                                                                                    console.log(time)
                 const slot = document.querySelector(`.appointment-slot[data-time="${time}"]`);
                 if (slot) {
                     slot.className = 'appointment-slot booked';
@@ -176,7 +224,7 @@
                 
                 appointmentModal.style.display = 'none';
             });
-            
+                                                                                                              //NO LO ENTIENDO
             // Cerrar modal haciendo clic fuera del contenido
             window.addEventListener('click', function(event) {
                 if (event.target === appointmentModal) {
@@ -185,7 +233,36 @@
             });
             
             // Inicializar
+            leerDelLocalStorage();
             generateTimeSlots();
             generateAppointmentSlots();
+
         });
+
+
+//mostrar una cita por pantalla
+function displayCitas(cita){
+                const slot = document.querySelector(`.appointment-slot[data-time="${cita.hora}"]`);
+                console.log(cita.hora)
+                if (slot) {
+                    slot.className = 'appointment-slot booked';
+                    slot.innerHTML = `
+                        <div class="appointment-info">
+                            <div class="appointment-name">${cita.nombre}</div>
+                            <div class="appointment-phone">${cita.telefono}</div>
+                        </div>
+                    `;
+                }
+}
+//realizar busquedas
+function buscarPaciente(){
+    const buscando = document.getElementById('busqueda').value;
+    if(buscando.trim()=== ''){
+        return
+    }
+
+    
+
+}
+        
     

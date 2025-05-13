@@ -60,15 +60,21 @@
         
         input[type="date"] {
             padding: 8px;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
             border-radius: 5px;
+            /* border: none; */
+            cursor: pointer;
+        }
+        #busqueda{
+            border: none;
         }
         
-        .search-box {
+        .buscar{
             padding: 8px;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
             border-radius: 5px;
             min-width: 200px;
+           
         }
         
         .schedule {

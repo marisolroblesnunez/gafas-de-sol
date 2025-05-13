@@ -17,7 +17,15 @@
                 <input type="date" id="current-date">
                 <button id="next-day">Mañana →</button>
             </div>
-            <input type="text" class="search-box" placeholder="Buscar paciente...">
+            <div class="buscar">
+            <input type="text" id="busqueda"placeholder="Buscar paciente...">
+             <button onclick="buscarPaciente()">🔍</button>
+            </div>
+    
+    
+            <div class="resultado" id="resultado">
+                <!-- Los resultados aparecerán aquí -->
+            </div>
         </div>
         
         <div class="schedule">
@@ -66,6 +74,7 @@
                 <div class="form-actions">
                     <button type="button" class="btn-cancel" id="cancel-appointment">Cancelar</button>
                     <button type="submit" class="btn-save">Guardar Cita</button>
+                    <button type="submit" class="eliminar">Eliminar Cita</button>
                 </div>
             </form>
         </div>

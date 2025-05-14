@@ -1,7 +1,7 @@
 
         
         let citas= [];
-        let cita ={fechaYhora:'',nombre:'', tipo:'', telefono:'',notas:''};
+        // let cita ={fechaYhora:'',nombre:'', tipo:'', telefono:'',notas:''};
       
 
         
@@ -113,6 +113,7 @@
             // Manejar clic en un slot de cita
             function handleAppointmentSlotClick(event) {
                 const slot = event.currentTarget;
+                console.log(slot)
                 const time = slot.dataset.time;
                 
                 if (slot.classList.contains('available')) {
@@ -193,7 +194,8 @@
                         nombre: name,
                         telefono: phone,
                         tipo: type,
-                        notas: notes
+                        notas: notes,
+                        
                     });
                 }else{
                     //el producto ya está en el carrito
@@ -233,9 +235,10 @@
             });
             
             // Inicializar
-            leerDelLocalStorage();
+           
             generateTimeSlots();
             generateAppointmentSlots();
+             leerDelLocalStorage();
 
         });
 
@@ -250,7 +253,9 @@ function displayCitas(cita){
                         <div class="appointment-info">
                             <div class="appointment-name">${cita.nombre}</div>
                             <div class="appointment-phone">${cita.telefono}</div>
+                           
                         </div>
+                        <button class="eliminar">&#128465;</button>
                     `;
                 }
 }
@@ -264,5 +269,35 @@ function buscarPaciente(){
     
 
 }
-        
-    
+
+//         const li= document.createElement("li");//aqui creo el li
+// //aqui añado el contenido que va a tener el li que he creado
+// li.innerHTML=`
+
+//     <div data-id="${citas.id}">
+//         <input  type="checkbox" class="citaRealizada">
+               
+//                 ${citas.time} 
+//                 <span class="texto-tarea">
+//                 ${citas.name}
+//                 ${citas.phone}
+//                 ${citas.date}
+//                 ${citas.type}
+//                 ${citas.notes}
+//                 </span>
+//     </div>
+//     <button class="eliminar">&#128465;</button>`;//&#128465; este código lo he puesto para añadirle una papelera al boton de eliminar
+
+//     document.getElementById("citas").appendChild(li);//aqui añado li como hijo
+ 
+// li.querySelector(".eliminar").addEventListener("click", function(){
+//     //averiguar que id tiene la tarea
+//     let idCita = li.querySelector("div").getAttribute("data-id");//para saber exactamente la tarea que estoy borrando
+//     citas = citas.filter(item => item.id != idCita);//crea un nuevo array con todos los elementos que cumplan la condicion que hay dentro del parentesis, porque realmente para poder modificar el array sin hacer esto,
+//     // es igual que el push pero el push lo modifica, y esta nueva forma, crea uno nuevo. El push que es un ejemplo que he metido en -arrays.js-
+//     localStorage.setItem("citasGuardadas",JSON.stringify(citas));
+//     console.log(citas)
+//     //borrar tarea de la pantalla
+//     li.remove();
+// //esto es para eliminar la tarea
+// })

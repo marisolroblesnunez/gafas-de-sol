@@ -186,9 +186,9 @@
                 //comprobar si el producto existe en el carrito con la misma fecha
                 const citaExiste = citas.findIndex(item => item.hora === time && item.fecha === date);
 
-
+                let citaActual;
                 if(citaExiste === -1){
-                    citas.push({
+                    citaActual = {
                         fecha: date,
                         hora: time,
                         nombre: name,
@@ -196,7 +196,8 @@
                         tipo: type,
                         notas: notes,
                         
-                    });
+                    }
+                    citas.push(citaActual);
                 }else{
                     //el producto ya está en el carrito
                     citas[citaExiste].fecha = date;
@@ -204,6 +205,7 @@
                     citas[citaExiste].telefono = phone;
                     citas[citaExiste].tipo = type;
                     citas[citaExiste].notas = notes;
+                    citaActual = citas[citaExiste];
                             
                 }
                 localStorage.setItem("citasGuardadas", JSON.stringify(citas))
@@ -217,12 +219,39 @@
                 if (slot) {
                     slot.className = 'appointment-slot booked';
                     slot.innerHTML = `
+                    <div class="Item">
                         <div class="appointment-info">
                             <div class="appointment-name">${name}</div>
                             <div class="appointment-phone">${phone}</div>
+                            </div>
+                        <button data-id = "${citaActual.fecha}-${citaActual.hora}"  class="eliminar">&#128465;</button>
+                        </div>
+                        </div>
                         </div>
                     `;
                 }
+
+                //hacer dos eventos, que el botón elimine, y que en el nombre se habra una ventana modal.
+document.querySelectorAll('.eliminar').forEach(function(Item) {
+  Item.addEventListener('click', function(event) {
+    event.stopPropagation();
+    // alert("eliminar1")
+    event.stopPropagation();
+    console.log(Item)
+     const citaId = Item.getAttribute("data-id");
+    const citaId2 = citaId.split('/');
+
+    const indice = citas.findIndex(item => item.fecha === citaId2[0].fecha && item.hora === citaId2[1].hora);
+     console.log(indice)
+     citas.splice(indice, 1)
+     localStorage.setItem("citasGuardadas", JSON.stringify(citas))
+     Item.closest('.appointment-slot').classList.add("available")
+     Item.closest('.appointment-slot').classList.remove("booked");
+     Item.closest('.appointment-slot').innerHTML = `<div class="appointment-info available">Disponible</div>`;
+    }
+
+);
+});
                 
                 appointmentModal.style.display = 'none';
             });
@@ -250,15 +279,48 @@ function displayCitas(cita){
                 if (slot) {
                     slot.className = 'appointment-slot booked';
                     slot.innerHTML = `
-                        <div class="appointment-info">
-                            <div class="appointment-name">${cita.nombre}</div>
-                            <div class="appointment-phone">${cita.telefono}</div>
-                           
+                    <div class="cita">
+                        <div class="Item">
+                            <div class="appointment-info">
+                                <div class="appointment-name">${cita.nombre}</div>
+                                <div class="appointment-phone">${cita.telefono}</div>
+                            
+                            </div>
+                            <button data-id ="${cita.fecha}/${cita.hora}" class="eliminar">&#128465;</button>
                         </div>
-                        <button class="eliminar">&#128465;</button>
+                    </div>
                     `;
                 }
+
+//hacer dos eventos, que el botón elimine, y que en el nombre se habra una ventana modal.
+document.querySelectorAll('.eliminar').forEach(function(Item) {
+  Item.addEventListener('click', function(event) {
+    event.stopPropagation();
+    // alert("eliminar2")
+    console.log(Item)
+     const citaId = Item.getAttribute("data-id");
+    const citaId2 = citaId.split('/');
+
+    const indice = citas.findIndex(item => item.fecha === citaId2[0].fecha && item.hora === citaId2[1].hora);
+     console.log(indice)
+     citas.splice(indice, 1)
+     localStorage.setItem("citasGuardadas", JSON.stringify(citas))
+     //actualizar pantalla
+     Item.closest('.appointment-slot').classList.add("available")
+
+     Item.closest('.appointment-slot').classList.remove("booked");
+     Item.closest('.appointment-slot').innerHTML = `<div class="appointment-info">Disponible</div>`;
+    }
+
+);
+});
+
 }
+
+
+
+
+
 //realizar busquedas
 function buscarPaciente(){
     const buscando = document.getElementById('busqueda').value;
